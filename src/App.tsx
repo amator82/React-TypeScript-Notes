@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
-import './App.css'
+import NewNote from './pages/NewNote'
+import Home from './pages/Home'
+
 import { Container } from 'react-bootstrap'
 
 function App() {
     return (
         <Container className='my-4'>
             <Routes>
-                <Route path='/' element={'dd'} />
+                <Route path='/' element={<Home />} />
+                <Route path='/new' element={<NewNote />} />
                 <Route path='/:id'>
                     <Route index element={<h1>Show</h1>} />
                     <Route path='edit' element={<h1>Edit</h1>} />
