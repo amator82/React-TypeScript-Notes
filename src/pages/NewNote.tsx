@@ -11,7 +11,7 @@ type NewNoteProps = {
 const NewNote: FC<NewNoteProps> = ({ onSubmit, onAddTag, availableTags }) => {
     return (
         <>
-            <h1 className='mb-4'>NewNote</h1>
+            <h1 className='mb-4'>New Note</h1>
             <NoteForm
                 onSubmit={onSubmit}
                 onAddTag={onAddTag}

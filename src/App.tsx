@@ -10,6 +10,9 @@ import NoteList from './pages/NoteList/NoteList'
 import { useLocalStorage } from './hooks/useLocalStorage'
 
 import { NoteData, RawNote, Tag } from './types/note'
+import NoteLayout from './layouts/NoteLayout'
+import Note from './components/Note'
+import EditNote from './pages/NoteList/EditNote'
 
 function App() {
     const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', [])
@@ -30,6 +33,22 @@ function App() {
                 ...prevNotes,
                 { ...data, id: uuidV4(), tagIds: tags.map((tag) => tag.id) }
             ]
+        })
+    }
+
+    function onUpdateNote(id: string, { tags, ...data }: NoteData) {
+        setNotes((prevNotes) => {
+            return prevNotes.map((note) => {
+                if (note.id === id) {
+                    return {
+                        ...note,
+                        ...data,
+                        tagIds: tags.map((tag) => tag.id)
+                    }
+                } else {
+                    return note
+                }
+            })
         })
     }
 
@@ -56,9 +75,21 @@ function App() {
                         />
                     }
                 />
-                <Route path='/:id'>
-                    <Route index element={<h1>Show</h1>} />
-                    <Route path='edit' element={<h1>Edit</h1>} />
+                <Route
+                    path='/:id'
+                    element={<NoteLayout notes={notesWithTags} />}
+                >
+                    <Route index element={<Note />} />
+                    <Route
+                        path='edit'
+                        element={
+                            <EditNote
+                                onSubmit={onUpdateNote}
+                                onAddTag={addTag}
+                                availableTags={tags}
+                            />
+                        }
+                    />
                 </Route>
                 <Route path='*' element={<Navigate to='/' />} />
             </Routes>
