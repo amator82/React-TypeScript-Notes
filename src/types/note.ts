@@ -22,3 +22,9 @@ export type Tag = {
     id: string
     label: string
 }
+
+export type SimpifiedNote = {
+    id: string
+    title: string
+    tags: Tag[]
+}
