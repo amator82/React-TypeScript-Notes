@@ -12,7 +12,7 @@ import { useLocalStorage } from './hooks/useLocalStorage'
 import { NoteData, RawNote, Tag } from './types/note'
 import NoteLayout from './layouts/NoteLayout'
 import Note from './components/Note'
-import EditNote from './pages/NoteList/EditNote'
+import EditNote from './pages/EditNote'
 
 function App() {
     const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', [])
@@ -85,10 +85,7 @@ function App() {
                     path='/:id'
                     element={<NoteLayout notes={notesWithTags} />}
                 >
-                    <Route
-                        index
-                        element={<Note onDelete={onDeleteNote} />}
-                    />
+                    <Route index element={<Note onDelete={onDeleteNote} />} />
                     <Route
                         path='edit'
                         element={
